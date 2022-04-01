@@ -26,6 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'login', 
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -68,8 +70,8 @@ DATABASES = {
         'NAME': 'autocare',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': 'localhost',
-        'PORT': '',
+        'HOST': '',
+        'PORT': '3309',
     }
 }
 

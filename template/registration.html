@@ -31,7 +31,7 @@ class="img js-fullheight" style="background-image: url({% static 'login/images/b
 		<div class="row justify-content-center">
 			<div class="col-md-6 col-lg-4">
 				<div class="login-wrap p-0">
-					<form action="#" method="post" class="signin-form">
+					<form action="submit/" method="post" class="signin-form">
 						{% csrf_token %}
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Name" name="name" required>
