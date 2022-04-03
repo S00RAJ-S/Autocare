@@ -106,10 +106,8 @@
                   class="site-navigation position-relative text-right"
                   role="navigation"
                 >
+                {% block ul %}
                   <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-                    <li class="{% block a1 %} {% endblock %}">
-                      <a href="/"><span>Home</span></a>
-                    </li>
                     <!-- <li class="has-children">
                         <a href="about.html"><span>Dropdown</span></a>
                         <ul class="dropdown arrow-top">
@@ -138,9 +136,10 @@
                       <a href="/registration/"><span>Register</span></a>
                     </li>
                     <li class="{% block a5 %} {% endblock %}">
-                      <a href="/login/"><span>Login</span></a>
+                      <a href="/"><span>Login</span></a>
                     </li>
                   </ul>
+                  {% endblock %}
                 </nav>
               </div>
             </div>
