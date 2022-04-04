@@ -63,11 +63,12 @@
       * {
         padding: 0%;
         margin: 0%;
+        box-sizing: border-box;
       }
       .main {
         display: grid;
-        height: 100vh;
-        grid-template-rows: 1fr 7fr 1fr;
+        height: 100%;
+        grid-template-rows: 1fr 10fr 1fr;
       }
       .hed {
         grid-row: 1/2;
@@ -130,7 +131,7 @@
                       <a href="listings.html"><span>Listings</span></a>
                     </li>
                     <li class="{% block a3 %} {% endblock %}">
-                      <a href="about.html"><span>About</span></a>
+                      <a href="/partner/"><span>Partner With us</span></a>
                     </li>
                     <li class="{% block a4 %} {% endblock %}">
                       <a href="/registration/"><span>Register</span></a>
@@ -148,14 +149,12 @@
       </div>
       <!--Content part-->
       <div class="cont">
-        <div class="hero" style="position: relative">
           {% block body %} {% endblock %}
-        </div>
       </div>
       <!--Footer part-->
       <div class="foot">
         <!-- Footer -->
-        <footer class="footer-59391">
+        <footer class="footer-59391" style="padding: 1%;">
           <!-- <div class="border-bottom pb-5 mb-4">
       <div class="container">
         <div class="row align-items-center">
@@ -178,7 +177,6 @@
         </div>
       </div>
     </div> -->
-
           <div class="container">
             <div class="row align-items-center">
               <div

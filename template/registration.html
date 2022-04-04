@@ -21,6 +21,15 @@ class="img js-fullheight" style="background-image: url({% static 'login/images/b
 {% block a4 %}active {% endblock %}
 
 {% block body %}
+
+{% if messages %}
+    {% for message in messages %}
+    <div {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %} role="alert" style="width:35%;position: fixed; margin-top: 7%;margin-bottom: 0%;">
+      {{ message }}
+    </div>    
+    {% endfor %}
+{% endif %}
+
 <section class="ftco-section">
 	<div class="container">
 		<div class="row justify-content-center">
@@ -63,7 +72,7 @@ class="img js-fullheight" style="background-image: url({% static 'login/images/b
 							color: rgb(39, 198, 238);
 						}
 					</style>
-					<p class="w-100 text-center">&mdash; <a href="/login/">Already have an Account</a> &mdash;</p>
+					<p class="w-100 text-center">&mdash; <a href="/">Already have an Account</a> &mdash;</p>
 				</div>
 			</div>
 		</div>

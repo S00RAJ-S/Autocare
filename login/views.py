@@ -1,14 +1,17 @@
 from django.shortcuts import render,redirect
+from django.test import tag
 from .models import login
+from django.contrib import messages
+
 def index(request):
     try:
         if request.session['e'] and request.session['p'] != '':
             if request.session['t'] == 'a':
                 return redirect('/admin/')
             elif request.session['t'] == 'p':
-                return render(request,'partnerindex.html')
+                return redirect('/partner/home/')
             elif request.session['t'] == 'u':
-                return render(request,'userindex.html')
+                return redirect('/user/home/')
     except:
         return render(request,'login.html')
 
@@ -26,13 +29,14 @@ def submit(request):
                     return redirect('/admin/')
                 elif i.type == 'p':
                     request.session['t'] = 'p'
-                    return render(request,'partnerindex.html')
+                    return redirect('/partner/home/')
                 elif i.type == 'u':
                     request.session['t'] = 'u'
-                    return render(request,'userindex.html')
+                    return redirect('/user/home/')
             else:
                 continue
-        return render(request,'loginerror.html')          
+        messages.warning(request,"Invalid Credentials|Please Try again")
+        return redirect('/')          
 
 def logout(request):
     try:

@@ -23,7 +23,7 @@
 {% endblock %} 
 {% block title %}Login{% endblock %} 
 {% block bodyedit %}
-class="img js-fullheight" style="background-image: url({% static 'login/images/bg.jpg' %});" 
+class="img js-fullheight" style="background-image: url({% static 'login/images/bga.jpg' %});" 
 {% endblock %} 
 {% block ul %}
 <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
@@ -54,9 +54,15 @@ class="img js-fullheight" style="background-image: url({% static 'login/images/b
     <li class="{% block ad3 %} {% endblock %}">
       <a href="#"><span>test</span></a>
     </li>
-    <li class="{% block ad4 %} {% endblock %}">
-      <a href="/logout/"><span>Logout</span></a>
-    </li>
+    <li class="has-children">
+      <a href="#"><span></span></a>
+      <ul class="dropdown arrow-top">
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Settings</a></li>
+        <li><a href="/logout/">Logout</a></li>
+      </ul>
+  </li>
+</ul>
   </ul>
 {% endblock %}
 

@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'login', 
     'user',
     'admin',
+    'partner',
 ]
 
 MIDDLEWARE = [
