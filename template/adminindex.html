@@ -19,9 +19,25 @@
 />
 
 <link rel="stylesheet" href="{% static 'login/css/style.css' %}" />
-
+<style>
+  .contain{
+    opacity: .8;
+    margin: 13% 15% 0% 15% ;
+    padding-bottom: 5%;
+    display: flex;
+  }
+  td,tr{
+    padding: 1%;
+  }
+  .card-link{
+    color: rgb(43, 198, 226);
+  }
+  .card-link:hover{
+    color: rgb(98, 43, 226);
+  }
+</style>
 {% endblock %} 
-{% block title %}Login{% endblock %} 
+{% block title %}Admin Panel{% endblock %} 
 {% block bodyedit %}
 class="img js-fullheight" style="background-image: url({% static 'login/images/bga.jpg' %});" 
 {% endblock %} 
@@ -67,6 +83,53 @@ class="img js-fullheight" style="background-image: url({% static 'login/images/b
 {% endblock %}
 
 {% block body %}
+<div class="contain">
+  <table width="50%" height="20%">
+    <tr>
+      <td>
+<div class="card" style="width: 23rem;">
+  <div class="card-body">
+    <h5 class="card-title">Total Number of Users</h5>
+    <p class="card-text" style="font-weight: bolder;color: black;font-size: 50px;">{{ tu }}</p>
+    <a href="#" class="card-link">Card link</a>
+  </div>
+</div>
+</td>
+<td style="padding-left: 10%;">
+  <div class="card" style="width: 24rem;">
+    <div class="card-body">
+      <h5 class="card-title">Total Number of Partners</h5>
+      <p class="card-text" style="font-weight: bolder;color: black;font-size: 50px;">{{ tp }}</p>
+      <a href="#" class="card-link">Card link</a>
+    </div>
+  </div>
+  </td>
+</tr>
+<tr>
+  <td>
+<div class="card" style="width: 23rem;">
+  <div class="card-body">
+    <h5 class="card-title">Total Number of Partners</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Approved</h6>
+    <p class="card-text"style="font-weight: bolder;color: black;font-size: 50px;">{{ tpa }}</p>
+    <a href="#" class="card-link">Card link</a>
+  </div>
+</div>
+</td>
+<td style="padding-left: 10%;">
+  <div class="card" style="width: 24rem;">
+    <div class="card-body">
+      <h5 class="card-title">Total Number of Partners</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Not Approved</h6>
+      <p class="card-text"style="font-weight: bolder;color: black;font-size: 50px;">{{ tpna }}</p>
+      <a href="#" class="card-link">Card link</a>
+    </div>
+  </div>
+  </td>
+</tr>
+</table>
+
+</div>
 
 
 {% endblock %} {% block js %}
