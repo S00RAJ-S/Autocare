@@ -19,14 +19,28 @@
 />
 
 <link rel="stylesheet" href="{% static 'login/css/style.css' %}" />
-
+<style>
+  .username{
+    width: 90%;
+    margin-top: 4%;
+    margin-left: 2%;
+    padding-left: 3%;
+    background-color: rgba(7, 7, 7, 0.5);
+    border-radius: 5%;
+    border: 1px dotted white;
+  }
+  .username h2{
+    color: white;
+    font-family: Imprint MT Shadow;
+  }
+</style>
 {% endblock %} 
 {% block title %}Partner Page{% endblock %} 
 {% block bodyedit %}
 class="img js-fullheight" style="background-image: url({% static 'login/images/bgp.jpg' %});" 
 {% endblock %} 
 {% block ul %}
-<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block" style="padding-right: 8%;">
     <!-- Dropdown
         <li class="has-children">
         <a href="about.html"><span>Dropdown</span></a>
@@ -67,7 +81,9 @@ class="img js-fullheight" style="background-image: url({% static 'login/images/b
 {% endblock %}
 
 {% block body %}
-
+<div class="username">
+  <h2><strong>Welcome &ensp; {{ name }}</strong></h2>
+</div>
 
 {% endblock %} {% block js %}
 <script src="{% static 'login/js/jquery.min.js' %}"></script>

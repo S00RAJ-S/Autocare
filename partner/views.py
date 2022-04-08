@@ -1,18 +1,21 @@
 import time
-from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from .models import partnerreg
+from partner.models import partnerreg
 from login.models import login
 from django.contrib import messages
+
 
 def index(request):
     return render(request,'partnerreg.html')
 
 def home(request):
+    
     try:
         if request.session['e'] and request.session['p'] != '':
             if request.session['t'] == 'p':
-                return render(request,'partnerindex.html')
+                em = request.session['e']
+                na = partnerreg.objects.get(email=em).oname
+                return render(request,'partnerindex.html',{"name":na})
             else:
                 return redirect('/')
     except: 

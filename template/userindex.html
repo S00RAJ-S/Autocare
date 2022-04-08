@@ -20,13 +20,32 @@
 
 <link rel="stylesheet" href="{% static 'login/css/style.css' %}" />
 
+<link type="text/css" rel="stylesheet" href="{% static 'booking/css/style.css' %}" />
+
+<style>
+  .username{
+    width: 90%;
+    margin-top: 11%;
+    margin-left: 2%;
+    padding-left: 3%;
+    background-color: rgba(7, 7, 7, 0.5);
+    border-radius: 5%;
+    border: 1px dotted white;
+  }
+  .username h2{
+    color: white;
+    font-family: Imprint MT Shadow;
+  }
+</style>
+
+
 {% endblock %} 
 {% block title %}Home{% endblock %} 
 {% block bodyedit %}
-class="img js-fullheight" style="background-image: url({% static 'login/images/bgu.jpg' %});" 
+class="img" style="background-image: url({% static 'login/images/bgu.jpg' %});" 
 {% endblock %} 
 {% block ul %}
-<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block" style="padding-right: 8%;">
     <!-- <li class="has-children">
         <a href="about.html"><span>Dropdown</span></a>
         <ul class="dropdown arrow-top">
@@ -65,9 +84,47 @@ class="img js-fullheight" style="background-image: url({% static 'login/images/b
 </ul>
   </ul>
 {% endblock %}
-
 {% block body %}
 
+<div class="username">
+  <h2><strong>Welcome &ensp; {{ name }}</strong></h2>
+</div>
+
+<div id="booking" class="section" style="padding-top: 0%;">
+  <div class="section-center">
+    <div class="container">
+      <div class="row">
+        <div class="booking-form">
+          <div class="form-header">
+            <h1>Book For A Service</h1>
+          </div>
+          <form>
+            <div class="form-group">
+              <input class="form-control" type="text" placeholder="Describe Your Problem">
+            </div>
+            <div class="row">
+              <div class="col-md-5">
+                <div class="form-group">
+                  <select class="form-control" required>
+                    <option value="" selected hidden>Select Category</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                  </select>
+                  <span class="select-arrow"></span>
+                  <span class="form-label">Rooms</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-btn">
+              <input type="submit" value="Submit" class="submit-btn">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %} {% block js %}
 <script src="{% static 'login/js/jquery.min.js' %}"></script>

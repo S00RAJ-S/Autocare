@@ -1,6 +1,7 @@
+import email
 from django.contrib import messages
 from django.shortcuts import render,redirect
-from .models import userreg
+from user.models import userreg
 from login.models import login
 
 def index(request):
@@ -10,7 +11,9 @@ def home(request):
     try:
         if request.session['e'] and request.session['p'] != '':
             if request.session['t'] == 'u':
-                return render(request,'userindex.html')
+                em = request.session['e']
+                na = userreg.objects.get(email=em).name
+                return render(request,'userindex.html',{"name":na})
             else:
                 return redirect('/')
     except: 
