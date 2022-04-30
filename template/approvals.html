@@ -35,6 +35,51 @@
   .card-link:hover{
     color: rgb(98, 43, 226);
   }
+
+  .usertable{
+    width: 100%;
+    padding-right: 10%;
+  }
+
+  table {
+    width: 100%;
+    margin: 10% 18% 5% 5%;
+  }
+
+  .thead-dark{
+    font-size: x-large;
+  }
+
+  .tabdat{
+    background-color: rgba(0, 217, 255, 0.2);
+    font-size:  medium;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    color: rgb(255, 255, 255);
+  }
+  .tabdat td,th{
+    border-bottom: 2px solid white;
+    border-right: 1px solid grey;
+  }
+
+  .delbtn{
+    border-radius: 5%;
+    border-left: 10px solid rgb(25, 0, 255);
+    border-top: 1px double rgb(255, 255, 255);
+    border-bottom: 1px double rgb(255, 255, 255);
+    background-color:  rgba(154, 147, 247, 0.4);
+    color: rgb(255, 255, 255);
+    margin-top: 6%;
+    padding: 5% 1% 5% 1%;
+  }
+
+  .delbtn:hover{
+    background-color:  rgba(0, 0, 0, 0.4);
+    border-left: 5px double rgb(25, 0, 255);
+    border-right: 1px double rgb(25, 0, 255);
+
+  }
+  
 </style>
 {% endblock %} 
 {% block title %}Admin Panel{% endblock %} 
@@ -64,7 +109,7 @@ class="img js-fullheight" style="background-image: url({% static 'login/images/b
     <li class="{% block ad1 %} {% endblock %}">
       <a href="/admin/viewusers/"><span>View Users</span></a>
     </li>
-    <li class="{% block ad2 %} {% endblock %}">
+    <li class="{% block ad2 %}{% endblock %}">
       <a href="/admin/viewpartners/"><span>View Partners</span></a>
     </li>
     <li class="{% block ad3 %} {% endblock %}">
@@ -83,58 +128,58 @@ class="img js-fullheight" style="background-image: url({% static 'login/images/b
 {% endblock %}
 
 {% block body %}
-<div class="contain">
-  <table width="50%" height="20%">
+
+{% if messages %}
+    {% for message in messages %}
+    <div {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %} role="alert" style="width:35%;position: fixed; margin-top: 5%;margin-bottom: 0%;">
+      {{ message }}
+    </div>    
+    {% endfor %}
+{% endif %}
+
+<section class="usertable">
+<table class="table">
+  <thead class="thead-dark">
     <tr>
+      <th scope="col">Shop Name</th>
+      <th scope="col">Owner Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Address</th>
+      <th scope="col">Liscense</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody class="tabdat">
+    {% for x in pd %}
+    <tr>
+      <td>{{ x.sname }}</td>
+      <td>{{ x.oname }}</td>
+      <td>{{ x.email }}</td>
+      <td>{{ x.phone }}</td>
+      <td>{{ x.address }}</td>
+      <td>{{ x.license }}</td>
       <td>
-<div class="card" style="width: 23rem;">
-  <div class="card-body">
-    <h5 class="card-title">Total Number of Users</h5>
-    <p class="card-text" style="font-weight: bolder;color: black;font-size: 50px;">{{ tu }}</p>
-    <a href="/admin/viewusers/" class="card-link">View Users</a>
-  </div>
-</div>
-</td>
-<td style="padding-left: 10%;">
-  <div class="card" style="width: 24rem;">
-    <div class="card-body">
-      <h5 class="card-title">Total Number of Partners</h5>
-      <p class="card-text" style="font-weight: bolder;color: black;font-size: 50px;">{{ tp }}</p>
-      <a href="/admin/viewpartners/" class="card-link">View Partners</a>
-    </div>
-  </div>
-  </td>
-</tr>
-<tr>
-  <td>
-<div class="card" style="width: 23rem;">
-  <div class="card-body">
-    <h5 class="card-title">Total Number of Partners</h5>
-    <h6 class="card-subtitle mb-2 text-muted">Approved</h6>
-    <p class="card-text"style="font-weight: bolder;color: black;font-size: 50px;">{{ tpa }}</p>
-    <a href="/admin/approvedp/" class="card-link">View</a>
-  </div>
-</div>
-</td>
-<td style="padding-left: 10%;">
-  <div class="card" style="width: 24rem;">
-    <div class="card-body">
-      <h5 class="card-title">Total Number of Partners</h5>
-      <h6 class="card-subtitle mb-2 text-muted">Not Approved</h6>
-      <p class="card-text"style="font-weight: bolder;color: black;font-size: 50px;">{{ tpna }}</p>
-      <a href="/admin/approvals/" class="card-link">Approve Partner</a>
-    </div>
-  </div>
-  </td>
-</tr>
+        <form action="/admin/approved/" method="post">
+          {% csrf_token %}
+          <input type="number" name="pid" style="display: none;"  value="{{ x.pid_id }}">
+          <input type="submit" class="delbtn" value="Approve Partner" onclick="return confirm('Verified the Partner?  Are you sure?');">
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
 </table>
-
-</div>
-
-
+</section>
+  
 {% endblock %} {% block js %}
 <script src="{% static 'login/js/jquery.min.js' %}"></script>
 <script src="{% static 'login/js/popper.js' %}"></script>
 <script src="{% static 'login/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'login/js/main.js' %}"></script>
 {% endblock %}
+
+
+
+
+

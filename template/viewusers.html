@@ -1,0 +1,172 @@
+{% extends 'hf.html' %}
+{% load static %}
+{% block head %}
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+<link rel="stylesheet" href="{% static 'login/css/style.css' %}" />
+<style>
+  .contain {
+    opacity: .8;
+    margin: 13% 15% 0% 15%;
+    padding-bottom: 5%;
+    display: flex;
+  }
+
+  td,
+  tr {
+    padding: 1%;
+  }
+
+  .card-link {
+    color: rgb(43, 198, 226);
+  }
+
+  .card-link:hover {
+    color: rgb(98, 43, 226);
+  }
+
+  .usertable{
+    width: 100%;
+    padding-right: 10%;
+  }
+
+  table {
+    width: 100%;
+    margin: 10% 18% 5% 5%;
+  }
+
+  .thead-dark{
+    font-size: x-large;
+  }
+
+  .tabdat{
+    background-color: rgba(0, 217, 255, 0.2);
+    font-size:  medium;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    color: rgb(255, 255, 255);
+  }
+
+  .tabdat td,th{
+    border-bottom: 2px solid white;
+  }
+
+  .delbtn{
+    border-radius: 5%;
+    border-left: 10px solid rgb(25, 0, 255);
+    border-top: 1px double rgb(255, 255, 255);
+    border-bottom: 1px double rgb(255, 255, 255);
+    background-color:  rgba(154, 147, 247, 0.4);
+    color: rgb(255, 255, 255);
+    padding: 5%;
+  }
+
+  .delbtn:hover{
+    background-color:  rgba(0, 0, 0, 0.4);
+    border-left: 5px double rgb(25, 0, 255);
+    border-right: 1px double rgb(25, 0, 255);
+
+  }
+  
+</style>
+{% endblock %}
+{% block title %}Admin Panel{% endblock %}
+{% block bodyedit %}
+class="img js-fullheight" style="background-image: url({% static 'login/images/bga.jpg' %});"
+{% endblock %}
+{% block ul %}
+<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block" style="padding-right: 8%;">
+  <!-- <li class="has-children">
+        <a href="about.html"><span>Dropdown</span></a>
+        <ul class="dropdown arrow-top">
+          <li><a href="#">Menu One</a></li>
+          <li><a href="#">Menu Two</a></li>
+          <li><a href="#">Menu Three</a></li>
+          <li class="has-children">
+            <a href="#">Dropdown</a>
+            <ul class="dropdown">
+              <li><a href="#">Menu One</a></li>
+              <li><a href="#">Menu Two</a></li>
+              <li><a href="#">Menu Three</a></li>
+              <li><a href="#">Menu Four</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li> -->
+
+  <li class="{% block ad1 %}active{% endblock %}">
+    <a href="/admin/viewusers/"><span>View Users</span></a>
+  </li>
+  <li class="{% block ad2 %} {% endblock %}">
+    <a href="/admin/viewpartners/"><span>View Partners</span></a>
+  </li>
+  <li class="{% block ad3 %} {% endblock %}">
+    <a href="#"><span>test</span></a>
+  </li>
+  <li class="has-children">
+    <a href="#"><span></span></a>
+    <ul class="dropdown arrow-top">
+      <li><a href="#">Profile</a></li>
+      <li><a href="#">Settings</a></li>
+      <li><a href="/logout/">Logout</a></li>
+    </ul>
+  </li>
+</ul>
+</ul>
+{% endblock %}
+
+{% block body %}
+
+{% if messages %}
+    {% for message in messages %}
+    <div {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %} role="alert" style="width:35%;position: fixed; margin-top: 5%;margin-bottom: 0%;">
+      {{ message }}
+    </div>    
+    {% endfor %}
+{% endif %}
+
+<section class="usertable">
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Address</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody class="tabdat">
+    {% for x in ud %}
+    <tr>
+      <th scope="row"></th>
+      <td>{{ x.name }}</td>
+      <td>{{ x.email }}</td>
+      <td>{{ x.phone }}</td>
+      <td>{{ x.address }}</td>
+      <td>
+        <form action="/admin/deluser/" method="post">
+          {% csrf_token %}
+          <input type="number" name="uid" style="display: none;"  value="{{ x.uid_id }}">
+          <input type="submit" class="delbtn" value="Delete User" onclick="return confirm('It will be deleted Permanently, Are you sure?');">
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</section>
+
+{% endblock %} {% block js %}
+<script src="{% static 'login/js/jquery.min.js' %}"></script>
+<script src="{% static 'login/js/popper.js' %}"></script>
+<script src="{% static 'login/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'login/js/main.js' %}"></script>
+{% endblock %}

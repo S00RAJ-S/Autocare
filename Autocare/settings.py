@@ -70,9 +70,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'autocare',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': '',
         'HOST': '',
-        'PORT': '3309',
+        'PORT': '',
     }
 }
 
