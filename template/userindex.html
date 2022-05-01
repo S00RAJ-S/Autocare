@@ -65,7 +65,7 @@ class="img" style="background-image: url({% static 'login/images/bgu.jpg' %});"
       </li> -->
 
     <li class="{% block ad1 %} {% endblock %}">
-      <a href="listings.html"><span>Listings</span></a>
+      <a href="/user/mybookings"><span>My Bookings</span></a>
     </li>
     <li class="{% block ad2 %} {% endblock %}">
       <a href="about.html"><span>About</span></a>
@@ -90,6 +90,14 @@ class="img" style="background-image: url({% static 'login/images/bgu.jpg' %});"
   <h2><strong>Welcome &ensp; {{ name }}</strong></h2>
 </div>
 
+{% if messages %}
+    {% for message in messages %}
+    <div {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %} role="alert" style="width:35%;position: fixed; margin-top: 7%;margin-bottom: 0%;">
+      {{ message }}
+    </div>    
+    {% endfor %}
+{% endif %}
+
 <div id="booking" class="section" style="padding-top: 0%;">
   <div class="section-center">
     <div class="container">
@@ -98,21 +106,22 @@ class="img" style="background-image: url({% static 'login/images/bgu.jpg' %});"
           <div class="form-header">
             <h1>Book For A Service</h1>
           </div>
-          <form>
+          <form action="/user/submitbooking/" method="post">
+            {% csrf_token %}
             <div class="form-group">
-              <input class="form-control" type="text" placeholder="Describe Your Problem">
+              <textarea class="form-control" name="details" placeholder="Describe Your Problem" cols="30" rows="6"></textarea>
             </div>
             <div class="row">
               <div class="col-md-5">
                 <div class="form-group">
-                  <select class="form-control" required>
+                  <select name="category" class="form-control" required>
                     <option value="" selected hidden>Select Category</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
+                    <option>Two Wheeler</option>
+                    <option>Three Wheeler</option>
+                    <option>Four Wheeler</option>
+                    <option>Heavy Vehicle</option>
                   </select>
                   <span class="select-arrow"></span>
-                  <span class="form-label">Rooms</span>
                 </div>
               </div>
             </div>

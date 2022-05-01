@@ -7,3 +7,9 @@ class userreg(models.Model):
     email = models.EmailField(max_length=100)
     phone =models.CharField(max_length=10)
     address = models.CharField(max_length=250)
+
+class bookings(models.Model):
+    bid = models.IntegerField(primary_key=True)
+    uid = models.IntegerField()
+    details = models.CharField(max_length=500)
+    category = models.CharField(max_length=20)

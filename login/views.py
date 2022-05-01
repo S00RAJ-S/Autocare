@@ -23,6 +23,7 @@ def submit(request):
             if i.email == e and i.password == p:
                 request.session['e'] = e
                 request.session['p'] = p
+                request.session['id'] = i.id
                 if i.type == 'a':
                     request.session['t'] = 'a'
                     return redirect('/admin/')
