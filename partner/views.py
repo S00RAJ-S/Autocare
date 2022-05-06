@@ -1,7 +1,8 @@
 import time
 from django.shortcuts import render,redirect
-from partner.models import partnerreg
+from partner.models import partneroffer, partnerreg
 from login.models import login
+from user.models import bookings
 from django.contrib import messages
 
 
@@ -15,7 +16,8 @@ def home(request):
             if request.session['t'] == 'p':
                 em = request.session['e']
                 na = partnerreg.objects.get(email=em).oname
-                return render(request,'partnerindex.html',{"name":na})
+                b = bookings.objects.all()
+                return render(request,'partnerindex.html',{"name":na,'b':b})
             else:
                 return redirect('/')
     except: 
@@ -45,3 +47,16 @@ def submit(request):
                     messages.success(request, 'Registered Your Shop Successfully|Now Login')
                     time.sleep(1)
                     return redirect('/')
+
+def viewbookingpartner(request):
+    po = partneroffer.objects.all()
+    id = request.session['id']
+    ubdat ={'ub':po,'id':id}
+    try:
+        if request.session['e'] and request.session['p'] != '':
+            if request.session['t'] ==  'p':
+                return render(request,'viewbookingpartner.html',ubdat)
+            else:
+                return redirect('/')
+    except: 
+        return redirect('/')   

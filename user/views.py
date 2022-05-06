@@ -47,7 +47,7 @@ def submitbooking(request):
         userid = request.session['id']
         for i in range(1,10000):
                 try:
-                    bookings.objects.get(bid = i).bid
+                    bookings.objects.get(id = i).bid
                     continue
                 except:
                     bookings(bid=i,uid=userid,details=details,category=category).save()
