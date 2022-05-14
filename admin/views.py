@@ -89,7 +89,7 @@ def approved(request):
     if request.method == "POST":
         pid = request.POST.get('pid')
         try:
-            login(id=pid,type='p',status='approved').save()
+            login.objects.filter(id=pid).update(type='p',status='approved')
             messages.success(request,'Successfully Approved')
             return redirect('/admin/approvals/')
         except:
