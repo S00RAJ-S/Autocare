@@ -45,7 +45,7 @@
   }
 
   .tabdat{
-    background-color: rgba(0, 217, 255, 0.2);
+    background-color: rgba(6, 6, 6, 0.573);
     font-size:  medium;
     font-weight: bold;
     font-family: 'Courier New', Courier, monospace;
@@ -155,11 +155,6 @@ class="img js-fullheight" style="background-image: url({% static 'login/images/b
           <input type="number" name="bid" style="display: none;"  value="{{ x.bid }}">
           <input type="submit" class="delbtn" value="Delete Booking" onclick="return confirm('Delete! Are you sure?');">
         </form>
-        <form action="/user/bookingdetails/" method="post">
-            {% csrf_token %}
-            <input type="number" name="bid" style="display: none;"  value="{{ x.bid }}">
-            <input type="submit"  class="delbtn" value="View Details">
-          </form>
       </td>
     </tr>
     {% endif %}

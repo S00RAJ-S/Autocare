@@ -1,6 +1,6 @@
 import time
 from django.shortcuts import render,redirect
-from partner.models import partneroffer, partnerreg
+from partner.models import partnerreg
 from login.models import login
 from user.models import bookings
 from django.contrib import messages
@@ -48,15 +48,15 @@ def submit(request):
                     time.sleep(1)
                     return redirect('/')
 
-def viewbookingpartner(request):
-    po = partneroffer.objects.all()
-    id = request.session['id']
-    ubdat ={'ub':po,'id':id}
-    try:
-        if request.session['e'] and request.session['p'] != '':
-            if request.session['t'] ==  'p':
-                return render(request,'viewbookingpartner.html',ubdat)
-            else:
-                return redirect('/')
-    except: 
-        return redirect('/')   
+# def viewbookingpartner(request):
+#     po = partneroffer.objects.all()
+#     id = request.session['id']
+#     ubdat ={'ub':po,'id':id}
+#     try:
+#         if request.session['e'] and request.session['p'] != '':
+#             if request.session['t'] ==  'p':
+#                 return render(request,'viewbookingpartner.html',ubdat)
+#             else:
+#                 return redirect('/')
+#     except: 
+#         return redirect('/')   

@@ -47,10 +47,10 @@ def submitbooking(request):
         userid = request.session['id']
         for i in range(1,10000):
                 try:
-                    bookings.objects.get(id = i).bid
+                    bookings.objects.get(bid = i).bid
                     continue
                 except:
-                    bookings(bid=i,uid=userid,details=details,category=category).save()
+                    bookings(bid=i,uid=userid,details=details,category=category,status='b',pid=0,wname='',wphone=0,rate=0,feedback='').save()
                     messages.success(request, 'Your Booking has been received')
                     return redirect('/')
                 
