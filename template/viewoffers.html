@@ -19,21 +19,10 @@
 />
 
 <link rel="stylesheet" href="{% static 'login/css/style.css' %}" />
-<style>
-  .username{
-    width: 90%;
-    margin-top: 8%;
-    margin-left: 2%;
-    padding-left: 3%;
-    background-color: rgba(7, 7, 7, 0.5);
-    border-radius: 5%;
-    border: 1px dotted white;
-  }
-  .username h2{
-    color: white;
-    font-family: Imprint MT Shadow;
-  }
 
+<link type="text/css" rel="stylesheet" href="{% static 'booking/css/style.css' %}" />
+
+<style>
   .contain{
     opacity: .8;
     margin: 13% 15% 0% 15% ;
@@ -51,7 +40,7 @@
 
   table {
     width: 100%;
-    margin: 2% 5% 5% 5%;
+    margin: 10% 18% 5% 5%;
   }
 
   .thead-dark{
@@ -59,7 +48,7 @@
   }
 
   .tabdat{
-    background-color: rgba(8, 8, 8, 0.683);
+    background-color: rgba(6, 6, 6, 0.573);
     font-size:  medium;
     font-weight: bold;
     font-family: 'Courier New', Courier, monospace;
@@ -90,15 +79,16 @@
   }
 
 </style>
+
+
 {% endblock %} 
-{% block title %}Partner Page{% endblock %} 
+{% block title %}Home{% endblock %} 
 {% block bodyedit %}
-class="img js-fullheight" style="background-image: url({% static 'login/images/bgp.jpg' %});" 
+class="img" style="background-image: url({% static 'login/images/bgu.jpg' %});" 
 {% endblock %} 
 {% block ul %}
 <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block" style="padding-right: 8%;">
-    <!-- Dropdown
-        <li class="has-children">
+    <!-- <li class="has-children">
         <a href="about.html"><span>Dropdown</span></a>
         <ul class="dropdown arrow-top">
           <li><a href="#">Menu One</a></li>
@@ -117,66 +107,69 @@ class="img js-fullheight" style="background-image: url({% static 'login/images/b
       </li> -->
 
     <li class="{% block ad1 %} {% endblock %}">
-      <a href="/partner/bids/"><span>Bids</span></a>
+      <a href="/user/mybookings"><span>My Bookings</span></a>
     </li>
-    <li class="{% block ad2 %} {% endblock %}">
-      <a href="about.html"><span>About</span></a>
+    <li class="{% block ad2 %} active {% endblock %}">
+      <a href="/user/viewoffers/"><span>Offers</span></a>
     </li>
     <li class="{% block ad3 %} {% endblock %}">
       <a href="#"><span>test</span></a>
     </li>
     <li class="has-children">
-        <a href="#"><span></span></a>
-        <ul class="dropdown arrow-top">
-          <li><a href="#">Profile</a></li>
-          <li><a href="#">Settings</a></li>
-          <li><a href="/logout/">Logout</a></li>
-        </ul>
-    </li>
+      <a href="#"><span></span></a>
+      <ul class="dropdown arrow-top">
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Settings</a></li>
+        <li><a href="/logout/">Logout</a></li>
+      </ul>
+  </li>
+</ul>
   </ul>
 {% endblock %}
-
 {% block body %}
-<div class="username">
-  <h2><strong>Welcome &ensp; {{ name }}</strong></h2>
-</div>
+
 
 {% if messages %}
     {% for message in messages %}
-    <div {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %} role="alert" style="width:35%;position: fixed; margin-top: 5%;margin-bottom: 0%;">
+    <div {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %} role="alert" style="z-index:1;width:35%;position: fixed; margin-top: 7%;margin-bottom: 0%;">
       {{ message }}
     </div>    
     {% endfor %}
 {% endif %}
 
 <section class="usertable">
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Booking ID</th>
-      <th scope="col">Details</th>
-      <th scope="col">Type Of Vehicle</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody class="tabdat">
-    {% for x in b %}
-    <tr>
-      <td>{{ x.bid }}</td>
-      <td>{{ x.details }}</td>
-      <td>{{ x.category }}</td>
-      <td>
-        <form action="/partner/placeoffer/" method="post">
-          {% csrf_token %}
-          <input type="number" name="bid" style="display: none;"  value="{{ x.bid }}">
-          <input type="submit" class="delbtn" value="Place Offer" onclick="return confirm('Are you sure?');">
-        </form>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-</section>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Booking ID</th>
+          <th scope="col">Worker Name</th>
+          <th scope="col">Worker Phone</th>
+          <th scope="col">Rate</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody class="tabdat">
+        {% for x in patofr %}
+        <tr>{% for y in bids %}
+                {% if y.bid == x.bid and y.status == 'b' %}
+          <td>{{ x.bid }}</td>
+          <td>{{ x.wname }}</td>
+          <td>{{ x.wphone }}</td>
+          <td>{{ x.rate }}</td>
+          <td>
+            <form action="/user/acceptoffer/" method="post">
+              {% csrf_token %}
+              <input type="number" name="pid" style="display: none;"  value="{{ x.pid }}">
+              <input type="number" name="bid" style="display: none;"  value="{{ x.bid }}">
+              <input type="submit" class="delbtn" value="Accept offer" onclick="return confirm('Accept the offer! Are you sure?');">
+            </form>
+          </td>
+                {% endif %}
+        </tr>{% endfor %}
+        {% endfor %}
+      </tbody>
+    </table>
+    </section>
 
 {% endblock %} {% block js %}
 <script src="{% static 'login/js/jquery.min.js' %}"></script>

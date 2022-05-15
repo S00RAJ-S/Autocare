@@ -1,7 +1,9 @@
+import imp
 from django.contrib import messages
 from django.shortcuts import render,redirect
 from user.models import userreg,bookings
 from login.models import login
+from partner.models import partneroffer,order
 
 def index(request):
     return render(request,'registration.html')
@@ -50,7 +52,7 @@ def submitbooking(request):
                     bookings.objects.get(bid = i).bid
                     continue
                 except:
-                    bookings(bid=i,uid=userid,details=details,category=category,status='b',pid=0,wname='',wphone=0,rate=0,feedback='').save()
+                    bookings(bid=i,uid=userid,details=details,category=category,status='b').save()
                     messages.success(request, 'Your Booking has been received')
                     return redirect('/')
                 
@@ -78,3 +80,28 @@ def delbooking(request):
         except:
             messages.warning(request,'Not Deleted')
             return redirect('/user/mybookings/')
+
+def viewoffers(request):
+    id = request.session['id']
+    bids =bookings.objects.filter(uid = id)
+    mylis = []
+    for x in bids:
+        mylis.append(x)
+    patofr = partneroffer.objects.all()
+    return render(request,'viewoffers.html',{'patofr':patofr,'bids':bids})
+
+def acceptoffer(request):
+    if request.method =="POST":
+        bookid = request.POST.get('bid')
+        bookings.objects.filter(bid=bookid).update(status='a')
+        uid = request.session['id']
+        details = bookings.objects.get(bid=bookid).details
+        category = bookings.objects.get(bid=bookid).category
+        pid = request.POST.get('pid')
+        wname = partneroffer.objects.get(pid=pid,bid=bookid).wname
+        wphone = partneroffer.objects.get(pid=pid,bid=bookid).wphone
+        rate =   partneroffer.objects.get(pid=pid,bid=bookid).rate
+        status = 'a'
+        order(bid=bookid,uid=uid,details=details,category=category,pid=pid,wname=wname,wphone=wphone,rate=rate,finalamt=0,feedback='',status=status).save()
+        messages.success(request,'Offer Placed Your issue will be solved')
+        return redirect('/')

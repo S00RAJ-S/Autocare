@@ -23,6 +23,41 @@
 <link type="text/css" rel="stylesheet" href="{% static 'booking/css/style.css' %}" />
 
 <style>
+  .contain{
+    opacity: .8;
+    margin: 13% 15% 0% 15% ;
+    padding-bottom: 5%;
+    display: flex;
+  }
+  td,tr{
+    padding: 1%;
+  }
+
+  .usertable{
+    width: 100%;
+    padding-right: 10%;
+  }
+
+  table {
+    width: 100%;
+    margin: 8% 5% 5% 5%;
+  }
+
+  .thead-dark{
+    font-size: x-large;
+  }
+
+  .tabdat{
+    background-color: rgba(8, 8, 8, 0.683);
+    font-size:  medium;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    color: rgb(255, 255, 255);
+  }
+  .tabdat td,th{
+    border-bottom: 2px solid white;
+    border-right: 1px solid grey;
+  }
 
 </style>
 
@@ -53,7 +88,7 @@ class="img js-fullheight" style="background-image: url({% static 'login/images/b
         </ul>
       </li> -->
 
-    <li class="{% block ad1 %} {% endblock %}">
+    <li class="{% block ad1 %} active {% endblock %}">
       <a href="/partner/bids/"><span>Bids</span></a>
     </li>
     <li class="{% block ad2 %} {% endblock %}">
@@ -82,38 +117,29 @@ class="img js-fullheight" style="background-image: url({% static 'login/images/b
     {% endfor %}
 {% endif %}
 
-<div id="booking" class="section" style="margin-top:10%;padding-top: 0%;">
-  <div class="section-center">
-    <div class="container">
-      <div class="row">
-        <div class="booking-form">
-          <div class="form-header">
-            <h1>Fill the details</h1>
-          </div>
-          <form action="/partner/submitoffer/" method="post">
-            {% csrf_token %}
-            <div class="form-group col-md-8">
-              <input type="number" style="display: none;" name="bid" value="{{ bid }}">
-              <input type="text" class="form-control" value="Booking Id {{ bid }}" disabled>
-            </div>
-              <div class="form-group col-md-8">
-                <input type="text" class="form-control" name="wname" placeholder="Worker Name">
-              </div>
-              <div class="form-group col-md-8">
-                <input type="number" class="form-control" name="wphone" placeholder="Worker Phone Number">
-              </div>
-              <div class="form-group col-md-8">
-                <input type="number" class="form-control" name="rate" placeholder="Base Rate for the work">
-              </div>
-            <div class="form-btn">
-              <input type="submit" value="Submit" class="submit-btn">
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<section class="usertable">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Booking ID</th>
+          <th scope="col">Worker Name</th>
+          <th scope="col">Worker Phone</th>
+          <th scope="col">Rate</th>
+        </tr>
+      </thead>
+      <tbody class="tabdat">
+        {% for x in b %}
+        <tr>
+          <td>{{ x.bid }}</td>
+          <td>{{ x.wname }}</td>
+          <td>{{ x.wphone }}</td>
+          <td>{{ x.rate }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </section>
+
 
 {% endblock %} {% block js %}
 <script src="{% static 'login/js/jquery.min.js' %}"></script>

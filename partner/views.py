@@ -1,6 +1,6 @@
 import time
 from django.shortcuts import render,redirect
-from partner.models import partnerreg
+from partner.models import partnerreg,partneroffer
 from login.models import login
 from user.models import bookings
 from django.contrib import messages
@@ -10,7 +10,6 @@ def index(request):
     return render(request,'partnerreg.html')
 
 def home(request):
-    
     try:
         if request.session['e'] and request.session['p'] != '':
             if request.session['t'] == 'p':
@@ -47,6 +46,28 @@ def submit(request):
                     messages.success(request, 'Registered Your Shop Successfully|Now Login')
                     time.sleep(1)
                     return redirect('/')
+
+def placeoffer(request):
+    if request.method == "POST":
+        bid = request.POST.get('bid')
+        return render(request,'placeoffer.html',{'bid':bid})
+
+def submitoffer(request):
+    if request.method == "POST":
+        bid = request.POST.get('bid')
+        pid = request.session['id']
+        wname = request.POST.get('wname')
+        wphone = request.POST.get('wphone')
+        rate = request.POST.get('rate')
+        partneroffer(bid=bid,pid=pid,wname=wname,wphone=wphone,rate=rate).save()
+        messages.success(request, 'Offer Placed Successfully')
+        return redirect('/partner/bids/')
+
+def bids(request):
+    id = request.session['id']
+    bids = partneroffer.objects.filter(pid=id)
+    return render(request,'bids.html',{'b':bids})
+
 
 # def viewbookingpartner(request):
 #     po = partneroffer.objects.all()

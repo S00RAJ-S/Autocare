@@ -9,3 +9,23 @@ class partnerreg(models.Model):
     phone =models.CharField(max_length=10)
     address = models.CharField(max_length=250)
     license = models.CharField(max_length=60)
+
+class partneroffer(models.Model):
+    bid = models.IntegerField()
+    pid = models.IntegerField()
+    wname = models.CharField(max_length=60)
+    wphone = models.IntegerField()
+    rate = models.IntegerField()  
+
+class order(models.Model):
+    bid = models.IntegerField()
+    uid = models.IntegerField()
+    details = models.CharField(max_length=500)
+    category = models.CharField(max_length=20)
+    pid = models.IntegerField()
+    wname = models.CharField(max_length=60)
+    wphone = models.IntegerField()
+    rate = models.IntegerField()  
+    finalamt = models.IntegerField()   
+    feedback = models.CharField(max_length=350)
+    status = models.CharField(max_length=5)

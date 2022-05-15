@@ -28,14 +28,18 @@ def submit(request):
                     request.session['t'] = 'a'
                     return redirect('/admin/')
                 elif i.type == 'p':
-                    request.session['t'] = 'p'
-                    return redirect('/partner/home/')
+                    if i.status == 'approved':
+                        request.session['t'] = 'p'
+                        return redirect('/partner/home/')
+                    else:
+                        messages.warning(request,"Your Partner Request not approved|Please Try Later or contact admin")
+                        return redirect('/')
                 elif i.type == 'u':
                     request.session['t'] = 'u'
                     return redirect('/user/home/')
             else:
                 continue
-        messages.warning(request,"Invalid Credentials|Please Try again")
+        messages.warning(request,"Invalid Credientials or not registered|Please Try Again")
         return redirect('/')          
 
 def logout(request):
