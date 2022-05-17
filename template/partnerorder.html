@@ -73,7 +73,7 @@
       <li class="{% block ad1 %} {% endblock %}">
         <a href="/partner/bids/"><span>Bids</span></a>
       </li>
-      <li class="{% block ad2 %} {% endblock %}">
+      <li class="{% block ad2 %} active {% endblock %}">
         <a href="/partner/partnerorders/"><span>My Orders</span></a>
       </li>
     <li class="has-children">
@@ -116,6 +116,9 @@
           <input type="submit" class="btn btn-primary" style="margin-top: 10%;" value="Update Final Amount">
         </form>
             {% endif %}
+            {% if x.status == 'p' %}
+            <h6 class="card-subtitle mb-2 text-muted">Feedback: {{ x.feedback }}</h6>
+              {% endif %}
         </div>
       </div>
 {% endfor %}

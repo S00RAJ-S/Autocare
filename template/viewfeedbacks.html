@@ -77,7 +77,7 @@
         <a href="/admin/viewpartners/"><span>View Partners</span></a>
       </li>
       <li class="{% block ad3 %} active {% endblock %}">
-        <a href="/admin/feedbacks/"><span>Feedbacks</span></a>
+        <a href="/admin/feedbacks/"><span>History</span></a>
       </li>
     <li class="has-children">
         <a href="#"><span>Profile</span></a>
@@ -108,8 +108,11 @@
     <div class="card" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title">Booking ID: {{ x.bid }} </h5>
+          <h6 class="card-subtitle mb-2 text-muted">User Id: {{ x.uid }}</h6>
           <h6 class="card-subtitle mb-2 text-muted">Partner Id: {{ x.pid }}</h6>
           <p class="card-text">{{ x.details }}</p>
+          <h6 class="card-subtitle mb-2 text-muted">Worker Name: {{ x.wname }}</h6>
+          <h6 class="card-subtitle mb-2 text-muted">Worker Phone: {{ x.wphone }}</h6>
           <h6 class="card-subtitle mb-2 text-muted">Base Rate: ₹{{ x.rate }}</h6>
           <h6 class="card-subtitle mb-2 text-muted">Final Amount: ₹{{ x.finalamt }}</h6>
           <h6 class="card-subtitle mb-2 text-muted">Feedback: {{ x.feedback }}</h6>
