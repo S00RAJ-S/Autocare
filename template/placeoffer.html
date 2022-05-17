@@ -97,13 +97,13 @@ class="img js-fullheight" style="background-image: url({% static 'login/images/b
               <input type="text" class="form-control" value="Booking Id {{ bid }}" disabled>
             </div>
               <div class="form-group col-md-8">
-                <input type="text" class="form-control" name="wname" placeholder="Worker Name">
+                <input type="text" class="form-control" name="wname" placeholder="Worker Name" required>
               </div>
               <div class="form-group col-md-8">
-                <input type="number" class="form-control" name="wphone" placeholder="Worker Phone Number">
+                <input type="number" class="form-control" name="wphone" placeholder="Worker Phone Number" required>
               </div>
               <div class="form-group col-md-8">
-                <input type="number" class="form-control" name="rate" placeholder="Base Rate for the work">
+                <input type="number" class="form-control" name="rate" placeholder="Base Rate for the work" required>
               </div>
             <div class="form-btn">
               <input type="submit" value="Submit" class="submit-btn">

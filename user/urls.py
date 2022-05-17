@@ -10,4 +10,9 @@ urlpatterns = [
     path('delbooking/',views.delbooking),
     path('viewoffers/',views.viewoffers),
     path('acceptoffer/',views.acceptoffer),
+    path('orders/',views.orders),
+    path('done/',views.done),
+    path('payment/',views.payment),
+    path('payed/',views.payed),
+    path('myorders/',views.myorders),
 ]

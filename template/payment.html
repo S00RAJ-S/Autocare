@@ -1,0 +1,220 @@
+{% extends 'hf.html' %}
+{% load static %}
+{% block head %}
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+        background-color: #0C4160;
+        padding: 30px 10px;
+    }
+
+    .card {
+        max-width: 500px;
+        margin: auto;
+        color: black;
+        border-radius: 20 px;
+    }
+
+    p {
+        margin: 0px;
+    }
+
+    .container .h8 {
+        font-size: 30px;
+        font-weight: 800;
+        text-align: center;
+    }
+
+    .btn.btn-primary {
+        width: 100%;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 15px;
+        background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA 51%, #77A1D3 100%);
+        border: none;
+        transition: 0.5s;
+        background-size: 200% auto;
+
+    }
+
+
+    .btn.btn.btn-primary:hover {
+        background-position: right center;
+        color: #fff;
+        text-decoration: none;
+    }
+
+
+
+    .btn.btn-primary:hover .fas.fa-arrow-right {
+        transform: translate(15px);
+        transition: transform 0.2s ease-in;
+    }
+
+    .form-control {
+        color: white;
+        background-color: #223C60;
+        border: 2px solid transparent;
+        height: 60px;
+        padding-left: 20px;
+        vertical-align: middle;
+    }
+
+    .form-control:focus {
+        color: white;
+        background-color: #0C4160;
+        border: 2px solid #2d4dda;
+        box-shadow: none;
+    }
+
+    .text {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    ::placeholder {
+        font-size: 14px;
+        font-weight: 600;
+    }
+</style>
+
+
+{% endblock %}
+{% block title %}Orders{% endblock %}
+{% block bodyedit %}
+{% endblock %}
+{% block ul %}
+<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block" style="padding-right: 8%;">
+    <!-- <li class="has-children">
+        <a href="about.html"><span>Dropdown</span></a>
+        <ul class="dropdown arrow-top">
+          <li><a href="#">Menu One</a></li>
+          <li><a href="#">Menu Two</a></li>
+          <li><a href="#">Menu Three</a></li>
+          <li class="has-children">
+            <a href="#">Dropdown</a>
+            <ul class="dropdown">
+              <li><a href="#">Menu One</a></li>
+              <li><a href="#">Menu Two</a></li>
+              <li><a href="#">Menu Three</a></li>
+              <li><a href="#">Menu Four</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li> -->
+
+    <li class="{% block ad1 %} {% endblock %}">
+        <a href="/user/mybookings"><span>My Bookings</span></a>
+    </li>
+    <li class="{% block ad2 %} {% endblock %}">
+        <a href="/user/viewoffers/"><span>Offers</span></a>
+    </li>
+    <li class="has-children {% block ad3 %} active {% endblock %}">
+        <a href="#"><span>Orders</span></a>
+        <ul class="dropdown arrow-top">
+            <li><a href="#">Completed</a></li>
+            <li><a href="#">Ongoing</a></li>
+            <li><a href="/user/orders/">Details</a></li>
+        </ul>
+    </li>
+    <li class="has-children">
+        <a href="#"><span>Profile</span></a>
+        <ul class="dropdown arrow-top">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="/logout/">Logout</a></li>
+        </ul>
+    </li>
+</ul>
+</ul>
+{% endblock %}
+{% block body %}
+
+
+{% if messages %}
+{% for message in messages %}
+<div {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %} role="alert"
+    style="width:35%;position: fixed; margin-top: 7%;margin-bottom: 0%;">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+
+
+<div class="container p-0">
+    <div class="card px-4">
+        <p class="h8 py-3">Payment Details</p>
+        <div class="row gx-3">
+            <div class="col-12">
+                <div class="d-flex flex-column">
+                    <p class="text mb-1">Person Name</p>
+                    <form method="post" action="/user/payed/">
+                        {% csrf_token %}
+                        <input class="form-control mb-3" type="text" placeholder="Name" required>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="d-flex flex-column">
+                    <p class="text mb-1">Card Number</p>
+                    <input class="form-control mb-3" type="text" placeholder="1234 5678 435678" required>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="d-flex flex-column">
+                    <p class="text mb-1">Expiry</p>
+                    <input class="form-control mb-3" type="text" placeholder="MM/YYYY" required>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="d-flex flex-column">
+                    <p class="text mb-1">CVV/CVC</p>
+                    <input class="form-control mb-3 pt-2 " type="password" placeholder="***" required>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="d-flex flex-column">
+                    <p class="text mb-1">Feedback</p>
+                    <input class="form-control mb-3" name="feedback" type="text"
+                        placeholder="Your Feedback Goes here....." required>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <input type="number" name="bookingid" value="{{ bid }}" style="display: none;">
+                <input type="submit" value="Pay ₹ {{ amt }}" class="btn btn-primary mb-3">
+                <!-- <button type="submit" style="border:0;background:transparent;color: white;">
+                        <span class="ps-3">Pay ₹ {{ amt }}</span>
+                        <span class="fas fa-arrow-right"></span>
+                    </button> -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} {% block js %}
+<script src="{% static 'login/js/jquery.min.js' %}"></script>
+<script src="{% static 'login/js/popper.js' %}"></script>
+<script src="{% static 'login/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'login/js/main.js' %}"></script>
+{% endblock %}

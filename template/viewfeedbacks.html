@@ -1,0 +1,127 @@
+{% extends 'hf.html' %}
+{% load static %}
+{% block head %}
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+<link rel="stylesheet" href="{% static 'login/css/style.css' %}" />
+
+<link type="text/css" rel="stylesheet" href="{% static 'booking/css/style.css' %}" />
+
+<style>
+    body {
+        background-color: #8f4df8;
+    }
+    
+    .details{
+        width: 80%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 4%;
+    }
+
+    h3{
+        font-size: large;
+        margin-top: 3%;
+        color: white;
+        margin-left: 5%;
+    }
+
+    h3 a{
+        color: rgb(7, 7, 252);
+    }
+
+    .card{
+        padding: 1%;
+        margin: 2%;
+    }
+</style>
+
+
+{% endblock %}
+{% block title %}My Orders{% endblock %}
+{% block bodyedit %}
+{% endblock %}
+{% block ul %}
+<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block" style="padding-right: 8%;">
+    <!-- <li class="has-children">
+        <a href="about.html"><span>Dropdown</span></a>
+        <ul class="dropdown arrow-top">
+          <li><a href="#">Menu One</a></li>
+          <li><a href="#">Menu Two</a></li>
+          <li><a href="#">Menu Three</a></li>
+          <li class="has-children">
+            <a href="#">Dropdown</a>
+            <ul class="dropdown">
+              <li><a href="#">Menu One</a></li>
+              <li><a href="#">Menu Two</a></li>
+              <li><a href="#">Menu Three</a></li>
+              <li><a href="#">Menu Four</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li> -->
+
+      <li class="{% block ad1 %} {% endblock %}">
+        <a href="/admin/viewusers/"><span>View Users</span></a>
+      </li>
+      <li class="{% block ad2 %} {% endblock %}">
+        <a href="/admin/viewpartners/"><span>View Partners</span></a>
+      </li>
+      <li class="{% block ad3 %} active {% endblock %}">
+        <a href="/admin/feedbacks/"><span>Feedbacks</span></a>
+      </li>
+    <li class="has-children">
+        <a href="#"><span>Profile</span></a>
+        <ul class="dropdown arrow-top">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="/logout/">Logout</a></li>
+        </ul>
+    </li>
+</ul>
+</ul>
+{% endblock %}
+{% block body %}
+
+
+{% if messages %}
+{% for message in messages %}
+<div {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %} role="alert"
+    style="width:35%;position: fixed; margin-top: 7%;margin-bottom: 0%;">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+
+
+<div class="details">
+{% for x in f %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Booking ID: {{ x.bid }} </h5>
+          <h6 class="card-subtitle mb-2 text-muted">Partner Id: {{ x.pid }}</h6>
+          <p class="card-text">{{ x.details }}</p>
+          <h6 class="card-subtitle mb-2 text-muted">Base Rate: ₹{{ x.rate }}</h6>
+          <h6 class="card-subtitle mb-2 text-muted">Final Amount: ₹{{ x.finalamt }}</h6>
+          <h6 class="card-subtitle mb-2 text-muted">Feedback: {{ x.feedback }}</h6>
+        </div>
+      </div>
+{% endfor %}
+</div>
+
+
+{% endblock %} {% block js %}
+<script src="{% static 'login/js/jquery.min.js' %}"></script>
+<script src="{% static 'login/js/popper.js' %}"></script>
+<script src="{% static 'login/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'login/js/main.js' %}"></script>
+{% endblock %}

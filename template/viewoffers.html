@@ -112,11 +112,15 @@ class="img" style="background-image: url({% static 'login/images/bgu.jpg' %});"
     <li class="{% block ad2 %} active {% endblock %}">
       <a href="/user/viewoffers/"><span>Offers</span></a>
     </li>
-    <li class="{% block ad3 %} {% endblock %}">
-      <a href="#"><span>test</span></a>
+    <li class="has-children {% block ad3 %} {% endblock %}">
+      <a href="#"><span>Orders</span></a>
+      <ul class="dropdown arrow-top">
+        <li><a href="/user/myorders/">My Orders</a></li>
+        <li><a href="/user/orders/">Details</a></li>
+      </ul>
     </li>
     <li class="has-children">
-      <a href="#"><span></span></a>
+      <a href="#"><span>Profile</span></a>
       <ul class="dropdown arrow-top">
         <li><a href="#">Profile</a></li>
         <li><a href="#">Settings</a></li>

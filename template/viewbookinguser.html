@@ -107,11 +107,15 @@ class="img js-fullheight" style="background-image: url({% static 'login/images/b
     <li class="{% block ad2 %}{% endblock %}">
       <a href="/user/viewoffers/"><span>Offers</span></a>
     </li>
-    <li class="{% block ad3 %} {% endblock %}">
-      <a href="#"><span>test</span></a>
+    <li class="has-children {% block ad3 %} {% endblock %}">
+      <a href="#"><span>Orders</span></a>
+      <ul class="dropdown arrow-top">
+        <li><a href="/user/myorders/">My Orders</a></li>
+        <li><a href="/user/orders/">Details</a></li>
+      </ul>
     </li>
     <li class="has-children">
-      <a href="#"><span></span></a>
+      <a href="#"><span>Profile</span></a>
       <ul class="dropdown arrow-top">
         <li><a href="#">Profile</a></li>
         <li><a href="#">Settings</a></li>
@@ -145,7 +149,7 @@ class="img js-fullheight" style="background-image: url({% static 'login/images/b
   <tbody class="tabdat">
     {% for x in ub %}
     <tr>
-        {% if x.uid == uid %}
+        {% if x.uid == uid and x.status == 'b' %}
       <td>{{ x.bid }}</td>
       <td>{{ x.details }}</td>
       <td>{{ x.category }}</td>

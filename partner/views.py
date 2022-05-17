@@ -1,6 +1,6 @@
 import time
 from django.shortcuts import render,redirect
-from partner.models import partnerreg,partneroffer
+from partner.models import partnerreg,partneroffer,order
 from login.models import login
 from user.models import bookings
 from django.contrib import messages
@@ -15,7 +15,7 @@ def home(request):
             if request.session['t'] == 'p':
                 em = request.session['e']
                 na = partnerreg.objects.get(email=em).oname
-                b = bookings.objects.all()
+                b = bookings.objects.filter(status='b')
                 return render(request,'partnerindex.html',{"name":na,'b':b})
             else:
                 return redirect('/')
@@ -68,7 +68,18 @@ def bids(request):
     bids = partneroffer.objects.filter(pid=id)
     return render(request,'bids.html',{'b':bids})
 
-
+def partnerorder(request):
+    if request.method == "POST":
+        bid = request.POST.get('bid')
+        famt = request.POST.get('famt')
+        order.objects.filter(bid = bid).update(finalamt=famt)
+        messages.success(request,'Updated Successfully')
+        return redirect('/partner/partnerorders/')
+    else:
+        pid = request.session['id']
+        odat = order.objects.filter(pid=pid)
+        return render(request,'partnerorder.html',{'odat':odat})
+    
 # def viewbookingpartner(request):
 #     po = partneroffer.objects.all()
 #     id = request.session['id']

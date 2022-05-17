@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from login.models import login
 from user.models import userreg
-from partner.models import partnerreg
+from partner.models import partnerreg,order
 
 def index(request):
     tu = login.objects.filter(type='u').count()
@@ -113,3 +113,8 @@ def approvedp(request):
                 return redirect('/')
     except: 
         return redirect('/')    
+
+
+def feedbacks(request):
+    f = order.objects.filter(status='p')
+    return render(request,'viewfeedbacks.html',{'f':f})

@@ -10,4 +10,5 @@ urlpatterns = [
     path('approvals/',views.approvals),
     path('approved/',views.approved),
     path('approvedp/',views.approvedp),
+    path('feedbacks/',views.feedbacks),
 ]

@@ -1,4 +1,3 @@
-import imp
 from django.contrib import messages
 from django.shortcuts import render,redirect
 from user.models import userreg,bookings
@@ -105,3 +104,53 @@ def acceptoffer(request):
         order(bid=bookid,uid=uid,details=details,category=category,pid=pid,wname=wname,wphone=wphone,rate=rate,finalamt=0,feedback='',status=status).save()
         messages.success(request,'Offer Placed Your issue will be solved')
         return redirect('/')
+
+def orders(request):
+    if request.method == 'POST':
+        bid = request.POST.get('bid')
+        uid = request.session['id']
+        try:
+            odat = order.objects.get(bid = bid, uid = uid)
+            famt = []
+            famt = odat.finalamt
+            status =[]
+            status = odat.status
+            return render(request,'searchorders.html',{'odat':odat,'famt':famt,'status':status})
+        except:
+            messages.warning(request,'No record with the booking id |Try again')
+            return redirect('/user/orders/')
+    else:
+        odat = ''
+        return render(request,'searchorders.html',{'odat':odat})
+
+def done(request):
+    if request.method == "POST":
+        bid = request.POST.get('bid')
+        uid = request.session['id']
+        bookings.objects.filter(uid = uid, bid = bid).update(status = 'c')
+        order.objects.filter(uid = uid, bid = bid).update(status = 'c')
+        messages.success(request,'Marked as completed wait for Partner to Update Final amount and chack again to Make Payment')
+        return redirect('/user/orders/')
+
+
+def payment(request):
+    if request.method == "POST":
+        amt = request.POST.get('finalamt')
+        bid = request.POST.get('bid')
+        return render(request,'payment.html',{'amt':amt,'bid':bid})
+
+def payed(request):
+    if request.method == "POST":
+        bookid = request.POST.get('bookingid')
+        feedback = request.POST.get('feedback')
+        uid = request.session['id']
+        order.objects.filter(bid=bookid, uid=uid).update(status = 'p', feedback=feedback)
+        bookings.objects.filter(bid=bookid, uid=uid).update(status = 'p')
+        messages.success(request,'Payment Done Successfully')
+        return redirect('/user/orders/')
+
+
+def myorders(request):
+    uid = request.session['id']
+    odat = order.objects.filter(uid=uid)
+    return render(request,'myorders.html',{'odat':odat})

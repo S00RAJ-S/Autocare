@@ -8,4 +8,5 @@ urlpatterns = [
     path('placeoffer/',views.placeoffer),
     path('submitoffer/',views.submitoffer),
     path('bids/',views.bids),
+    path('partnerorders/',views.partnerorder),
 ]
